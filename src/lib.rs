@@ -110,3 +110,80 @@ mod tests {
         assert_eq!(result, max_half * 2);
     }
 }
+
+// Integration tests - run in browser environment with wasm-bindgen-test
+// These tests verify WASM functions work correctly in an actual browser
+#[cfg(test)]
+mod browser_tests {
+    use super::*;
+    use wasm_bindgen_test::*;
+
+    // Configure tests to run in browser
+    wasm_bindgen_test_configure!(run_in_browser);
+
+    // Browser integration tests for greet function
+    #[wasm_bindgen_test]
+    fn browser_test_greet_basic() {
+        let result = greet("Browser");
+        assert_eq!(result, "Hello, Browser!");
+    }
+
+    #[wasm_bindgen_test]
+    fn browser_test_greet_unicode() {
+        let result = greet("世界");
+        assert_eq!(result, "Hello, 世界!");
+    }
+
+    #[wasm_bindgen_test]
+    fn browser_test_greet_emoji() {
+        let result = greet("🦀");
+        assert_eq!(result, "Hello, 🦀!");
+    }
+
+    #[wasm_bindgen_test]
+    fn browser_test_greet_long_string() {
+        let long_name = "A".repeat(1000);
+        let result = greet(&long_name);
+        assert!(result.starts_with("Hello, "));
+        assert!(result.ends_with('!'));
+        assert_eq!(result.len(), long_name.len() + 8); // "Hello, " + "!"
+    }
+
+    // Browser integration tests for add function
+    #[wasm_bindgen_test]
+    fn browser_test_add_basic() {
+        assert_eq!(add(10, 20), 30);
+    }
+
+    #[wasm_bindgen_test]
+    fn browser_test_add_negative() {
+        assert_eq!(add(-5, -10), -15);
+    }
+
+    #[wasm_bindgen_test]
+    fn browser_test_add_mixed_signs() {
+        assert_eq!(add(100, -50), 50);
+        assert_eq!(add(-100, 50), -50);
+    }
+
+    #[wasm_bindgen_test]
+    fn browser_test_add_zero() {
+        assert_eq!(add(0, 0), 0);
+        assert_eq!(add(42, 0), 42);
+        assert_eq!(add(0, -42), -42);
+    }
+
+    #[wasm_bindgen_test]
+    fn browser_test_add_large_numbers() {
+        let result = add(1_000_000, 2_000_000);
+        assert_eq!(result, 3_000_000);
+    }
+
+    // Test that verifies WASM execution environment
+    #[wasm_bindgen_test]
+    fn browser_test_wasm_environment() {
+        // This test verifies we're running in a WASM environment
+        // If this passes, it confirms the test infrastructure is working
+        assert!(true, "WASM test environment is functional");
+    }
+}

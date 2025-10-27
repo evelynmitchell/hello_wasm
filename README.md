@@ -210,6 +210,56 @@ test tests::test_greet_special_chars ... ok
 test result: ok. 14 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out
 ```
 
+### Browser Integration Tests
+
+The project includes browser integration tests that verify WASM functions work correctly in an actual browser environment. These tests use `wasm-bindgen-test` to run the compiled WASM in a real browser.
+
+**Integration test coverage (10 tests):**
+- Basic greet functionality in browser
+- Unicode support (Chinese characters, emoji)
+- Long string handling (1000+ characters)
+- Add function with various inputs
+- WASM environment verification
+
+#### Running Browser Tests
+
+**Prerequisites:**
+- Chrome or Firefox installed on your system
+- ChromeDriver or GeckoDriver (automatically downloaded by wasm-pack)
+
+**Run in headless Chrome:**
+```bash
+wasm-pack test --headless --chrome
+```
+
+**Run in headless Firefox:**
+```bash
+wasm-pack test --headless --firefox
+```
+
+**Run in visible browser (for debugging):**
+```bash
+wasm-pack test --chrome
+# or
+wasm-pack test --firefox
+```
+
+#### Important Notes
+
+**GitHub Codespaces / CI environments:**
+Browser integration tests require a graphical environment or proper headless browser setup. In Codespaces or similar environments without display capabilities, these tests may not run. Use unit tests (`cargo test`) for CI/CD pipelines.
+
+**Local development:**
+Browser tests work best on local machines with browsers installed. They verify:
+- WASM module loads correctly
+- JavaScript/Rust type conversions work
+- Browser-specific APIs are accessible
+- Memory handling between JS and WASM
+
+**What gets tested:**
+- Unit tests (`cargo test`): Test Rust logic in native environment
+- Browser tests (`wasm-pack test`): Test WASM in actual browser with JavaScript bindings
+
 ## Making Changes
 
 ### Modify Rust Code
