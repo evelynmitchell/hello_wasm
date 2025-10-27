@@ -140,11 +140,14 @@ Navigate to `http://localhost:8000` in your web browser.
 ## Project Structure
 
 ```
-hello-wasm/
+/
 ├── .gitignore          # Excludes build artifacts
 ├── Cargo.toml          # Rust project configuration
 ├── Cargo.lock          # Dependency lock file
 ├── README.md           # This file
+├── Claude.md           # Claude Code guidance
+├── LICENSE             # Project license
+├── index.html          # Web interface
 ├── src/
 │   └── lib.rs          # Rust source code
 ├── pkg/                # Generated WASM and JS bindings (not in git)
@@ -152,7 +155,8 @@ hello-wasm/
 │   ├── hello_wasm_bg.wasm
 │   └── ...
 ├── target/             # Build artifacts (not in git)
-└── index.html          # Web interface
+└── Summary/            # Daily work summaries
+    └── summary20251027.md
 ```
 
 ## Making Changes
