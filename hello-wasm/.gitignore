@@ -1,0 +1,8 @@
+# Rust build artifacts
+/target
+
+# wasm-pack generated files
+/pkg
+
+# Debug files
+**/*.rs.bk
