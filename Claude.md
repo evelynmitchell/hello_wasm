@@ -132,8 +132,91 @@ You don't need to manually activate it - `uv run` handles this automatically.
 
 **PyCharm**: Set the Python interpreter to `.venv/bin/python`.
 
+## Rust Development
 
+This project includes Rust code compiled to WebAssembly (WASM).
 
+### Installation
+
+**Install Rust toolchain:**
+```bash
+curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
+source "$HOME/.cargo/env"
+```
+
+**Install wasm-pack:**
+```bash
+cargo install wasm-pack
+```
+
+### Naming Conventions
+
+Rust enforces naming conventions via the compiler:
+
+- **Functions and variables**: Use `snake_case`
+  - ✅ `test_add_positive_negative`
+  - ❌ `test_add_positiveNegT`
+- **Types and traits**: Use `PascalCase`
+- **Constants**: Use `SCREAMING_SNAKE_CASE`
+
+The compiler will emit warnings if these conventions are violated.
+
+### Common Commands
+
+**Run tests:**
+```bash
+cargo test
+```
+
+**Build WASM for web:**
+```bash
+wasm-pack build --target web
+```
+
+**Check code without building:**
+```bash
+cargo check
+```
+
+**Format code:**
+```bash
+cargo fmt
+```
+
+**Lint code:**
+```bash
+cargo clippy
+```
+
+### Testing in Rust
+
+- Place tests in a `#[cfg(test)]` module within `src/lib.rs`
+- Use `#[test]` attribute for test functions
+- Follow snake_case naming: `test_<function>_<scenario>`
+- Use `assert_eq!`, `assert!`, `assert_ne!` macros
+- Test edge cases: empty inputs, zeros, boundary values, negative numbers
+
+Example:
+```rust
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_add_positive_positive() {
+        assert_eq!(add(5, 3), 8);
+    }
+}
+```
+
+### WASM-Specific Notes
+
+- Use `#[wasm_bindgen]` to export functions to JavaScript
+- The `wasm-pack build --target web` command generates:
+  - `pkg/*.wasm` - The compiled WebAssembly binary
+  - `pkg/*.js` - JavaScript bindings
+  - `pkg/*.d.ts` - TypeScript definitions
+- Build artifacts (`target/` and `pkg/`) should be gitignored
 
 ## Common Patterns
 
