@@ -10,6 +10,8 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 **For User**: If you notice Claude has forgotten key workflow details after context compression, ask it to re-read this file.
 
+**Codespaces** If the summary file shows we are running in codespaces, then we are in the top level of the repository, and the README and other sub directories can go at the top level.
+
 ## Repository Overview
 
 
