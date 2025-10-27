@@ -159,16 +159,71 @@ Navigate to `http://localhost:8000` in your web browser.
     └── summary20251027.md
 ```
 
+## Testing
+
+This project includes comprehensive unit tests for both functions.
+
+### Run Tests
+
+```bash
+cargo test
+```
+
+### Test Coverage
+
+**greet() function tests:**
+- Normal names
+- Empty strings
+- Single characters
+- Long names
+- Special characters (Unicode)
+- Numbers in names
+- Names with spaces
+
+**add() function tests:**
+- Combinatorial testing: +/+, +/-, -/-, -/+
+- Zero edge cases
+- Boundary values
+- Large numbers near i32 limits
+
+All tests follow Rust's snake_case naming convention and test both typical usage and edge cases.
+
+### Test Output
+
+```
+running 14 tests
+test tests::test_add_boundary_values ... ok
+test tests::test_add_max_values ... ok
+test tests::test_add_negative_negative ... ok
+test tests::test_add_negative_positive ... ok
+test tests::test_add_positive_negative ... ok
+test tests::test_add_positive_positive ... ok
+test tests::test_add_with_zero ... ok
+test tests::test_greet_empty_string ... ok
+test tests::test_greet_long_name ... ok
+test tests::test_greet_normal_name ... ok
+test tests::test_greet_numbers ... ok
+test tests::test_greet_single_char ... ok
+test tests::test_greet_spaces ... ok
+test tests::test_greet_special_chars ... ok
+
+test result: ok. 14 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out
+```
+
 ## Making Changes
 
 ### Modify Rust Code
 
 1. Edit `src/lib.rs`
-2. Rebuild the WASM module:
+2. Run tests to verify changes:
+   ```bash
+   cargo test
+   ```
+3. Rebuild the WASM module:
    ```bash
    wasm-pack build --target web
    ```
-3. Refresh your browser (hard refresh may be needed: Ctrl+Shift+R or Cmd+Shift+R)
+4. Refresh your browser (hard refresh may be needed: Ctrl+Shift+R or Cmd+Shift+R)
 
 ### Modify HTML/CSS
 
